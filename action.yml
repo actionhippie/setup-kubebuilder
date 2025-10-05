@@ -1,0 +1,36 @@
+---
+# yaml-language-server: $schema=https://www.schemastore.org/github-action.json
+name: 'actionhippie-setup-kubebuilder'
+description: 'Install the Packwiz binary'
+author: 'actionhippie'
+branding:
+  icon: award
+  color: green
+
+inputs:
+  version:
+    description: |
+      Version of the Kubebuilder binary
+    required: false
+    default: 'latest'
+
+runs:
+  using: 'composite'
+
+  steps:
+    - name: Download binary
+      shell: bash
+      run: |
+        if [ "${{ inputs.version }}" == "latest" ]; then
+          DOWNLOAD_URL="https://go.kubebuilder.io/dl/latest/linux/$(go env GOARCH)"
+        else
+          DOWNLOAD_URL="https://github.com/kubernetes-sigs/kubebuilder/releases/download/v${{ inputs.version }}/kubebuilder_linux_$(go env GOARCH)"
+        fi
+        curl -sSLo kubebuilder "$DOWNLOAD_URL" && \
+          chmod +x kubebuilder && \
+          sudo mv kubebuilder /usr/local/bin/
+    - name: Verify binary
+      shell: bash
+      run: kubebuilder versions
+
+...
