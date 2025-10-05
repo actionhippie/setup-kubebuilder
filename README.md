@@ -28,7 +28,9 @@ jobs:
 
 ## Inputs
 
-None
+### `version`
+
+Version of the Kubebuilder binary
 
 ## Outputs
 
