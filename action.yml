@@ -31,6 +31,6 @@ runs:
           sudo mv kubebuilder /usr/local/bin/
     - name: Verify binary
       shell: bash
-      run: kubebuilder versions
+      run: kubebuilder version
 
 ...
